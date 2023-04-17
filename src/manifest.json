@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension with React & Webpack",
-  "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
+  "name": "Life in Weeks - Checked",
+  "description": "This extension is designed to introduce a little urgency with a gentle nudge every week, reminding us that our times are finite.",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
   "action": {
