@@ -3,6 +3,7 @@
   "name": "Life in Weeks - Checked",
   "description": "This extension is designed to introduce a little urgency with a gentle nudge every week, reminding us that our times are finite.",
   "options_page": "options.html",
+  "permissions": ["storage", "alarms", "notifications"],
   "background": { "service_worker": "background.bundle.js" },
   "action": {
     "default_popup": "popup.html",

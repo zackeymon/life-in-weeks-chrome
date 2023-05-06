@@ -1,27 +1,82 @@
-import React from 'react';
-import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
-import './Popup.css';
+import React, { useState, useEffect } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import CircularProgress from '@mui/material/CircularProgress';
+import moment from 'moment';
+import { Container, createTheme, ThemeProvider } from '@mui/material';
+import LifeGrid from './LifeGrid';
+import HeaderBar from './HeaderBar';
+import OverviewDialog from './OverviewDialog';
+import { getWeekNumberSince, getWeekNumberUntil } from '../common';
 
-const Popup = () => {
+export default function Popup() {
+  const [ready, setReady] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [ageGoal, setAgeGoal] = useState(undefined);
+  const [thisWeek, setThisWeek] = useState(undefined);
+  const [remainingWeeks, setRemainingWeeks] = useState(undefined);
+
+  useEffect(() => {
+    chrome.storage.sync.get(['birthday', 'ageGoal', 'checked'], (data) => {
+      const birthday = moment(data.birthday);
+      setChecked(data.checked);
+      setAgeGoal(data.ageGoal);
+      setThisWeek(getWeekNumberSince(birthday));
+      setRemainingWeeks(getWeekNumberUntil(birthday.add(ageGoal, 'years')));
+
+      setReady(!!ageGoal);
+    });
+  });
+
+  const checkThisWeek = () => {
+    setChecked(true);
+    chrome.storage.sync.set({ checked: true });
+    chrome.action.setBadgeText({
+      text: '',
+    });
+  };
+
+  const theme = createTheme({
+    palette: {
+      accent: {
+        main: 'rgb(235, 141, 0)',
+      },
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
-    </div>
-  );
-};
+    <ThemeProvider theme={theme}>
+      <Container component="div" sx={{
+        width: '790px',
+        minHeight: '400px',
+        padding: '10px 5px 10px 9px',
+      }}>
+        <CssBaseline />
+        {!ready
+          ? <CircularProgress disableShrink />
+          : (
+            <>
+              <OverviewDialog
+                open={dialogOpen}
+                checked={checked}
+                thisWeek={thisWeek}
+                ageGoal={ageGoal}
+                remainingWeeks={remainingWeeks}
+                setOpen={setDialogOpen}
+                checkThisWeek={checkThisWeek}
+              />
 
-export default Popup;
+              <HeaderBar checked={checked} setDialogOpen={setDialogOpen} />
+
+              <LifeGrid
+                totalWeeks={thisWeek + remainingWeeks}
+                thisWeek={thisWeek}
+                checked={checked}
+                setDialogOpen={setDialogOpen}
+              />
+            </>
+          )}
+      </Container>
+    </ThemeProvider>
+  );
+}
