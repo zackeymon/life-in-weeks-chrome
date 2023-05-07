@@ -6,11 +6,11 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import logo from '../../assets/img/icon-128.png';
 
-const Icon = styled('div')(({ theme }) => ({
+const Icon = styled('div')(() => ({
   cursor: 'pointer',
 }));
 
-const Logo = styled('img')(({ theme }) => ({
+const Logo = styled('img')(() => ({
   width: '25px',
 }));
 
@@ -18,23 +18,23 @@ const UncheckedPrompt = styled(Typography)(({ theme }) => ({
   color: theme.palette.accent.main,
 }));
 
-export default function HeaderBar(props) {
+export default function HeaderBar({ checked, setDialogOpen, uncheckHack }) {
   const theme = useTheme();
   return (
     <ThemeProvider theme={theme}>
       <Grid container sx={{ paddingBottom: theme.spacing(0.4) }}>
         <Grid item xs={1}>
-          <Logo src={logo} alt="logo" />
+          <Logo src={logo} alt="logo" onDoubleClick={uncheckHack} />
         </Grid>
         <Grid item xs={10}>
-          {props.checked
+          {checked
             ? <Typography variant="subtitle1">Make this week count.</Typography>
             : <UncheckedPrompt variant="subtitle1">Time to check off this week.</UncheckedPrompt>}
         </Grid>
         <Grid item xs={1}>
           <Grid container justifyContent="flex-end">
             <Icon>
-              <InfoOutlinedIcon onClick={() => props.setDialogOpen(true)} />
+              <InfoOutlinedIcon onClick={() => setDialogOpen(true)} />
             </Icon>
             <Icon>
               <SettingsOutlinedIcon

@@ -36,6 +36,11 @@ export default function Popup() {
     });
   };
 
+  const uncheckHack = () => {
+    setChecked(false);
+    chrome.storage.sync.set({ checked: false });
+  }
+
   const theme = createTheme({
     palette: {
       accent: {
@@ -47,7 +52,7 @@ export default function Popup() {
   return (
     <ThemeProvider theme={theme}>
       <Container component="div" sx={{
-        width: '790px',
+        width: '798px',
         minHeight: '400px',
         padding: '10px 5px 10px 9px',
       }}>
@@ -66,7 +71,7 @@ export default function Popup() {
                 checkThisWeek={checkThisWeek}
               />
 
-              <HeaderBar checked={checked} setDialogOpen={setDialogOpen} />
+              <HeaderBar checked={checked} setDialogOpen={setDialogOpen} uncheckHack={uncheckHack} />
 
               <LifeGrid
                 totalWeeks={thisWeek + remainingWeeks}

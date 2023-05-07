@@ -3,7 +3,6 @@ import { ThemeProvider, styled, useTheme } from '@mui/material/styles';
 
 const Grid = styled('div')`
   display: grid;
-  gap: 1px;
   grid-template-rows: repeat(auto-fill, 8px);
   grid-template-columns: repeat(auto-fill, 8px);
 `;
@@ -11,8 +10,6 @@ const Grid = styled('div')`
 const Cell = styled('div')(({ theme }) => ({
   width: '8px',
   height: '8px',
-  border: `1px solid ${theme.palette.grey[300]}`,
-  borderRadius: '2px',
   boxSizing: 'border-box',
   backgroundColor: 'white',
 }));
@@ -22,17 +19,23 @@ const Past = styled(Cell)(({ theme }) => ({
 }));
 
 const Future = styled(Cell)(({ theme }) => ({
-  '&:hover': {
-    backgroundColor: theme.palette.grey[100],
-  },
+  border: `0.5px solid ${theme.palette.grey[200]}`,
 }));
 
 const Current = styled(Cell)(({ theme }) => ({
   cursor: 'pointer',
-  border: `2px solid ${theme.palette.accent.main}`,
-  animation: 'pulse 2s infinite',
+  border: `1.5px solid ${theme.palette.accent.main}`,
+  zIndex: 1,
+  "@keyframes pulsate": {
+    from: {
+      boxShadow: `0 0 0 0px ${theme.palette.accent.main}`
+    },
+    to: {
+      boxShadow: `0 0 5px 8px rgba(0, 0, 0, 0)`
+    }
+  },
+  animation: "pulsate 1.5s infinite ease",
   '&:hover': {
-    animation: '0',
     borderWidth: '1px',
     transform: 'scale(2.5)',
   },
