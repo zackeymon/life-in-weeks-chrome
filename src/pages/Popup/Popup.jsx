@@ -7,6 +7,16 @@ import LifeGrid from './LifeGrid';
 import HeaderBar from './HeaderBar';
 import OverviewDialog from './OverviewDialog';
 import { getWeekNumberSince, getWeekNumberUntil } from '../common';
+import { styled } from '@mui/material/styles';
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  width: '798px',
+  minHeight: '300px',
+  padding: theme.spacing(2),
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
 
 export default function Popup() {
   const [ready, setReady] = useState(false);
@@ -51,16 +61,12 @@ export default function Popup() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="div" sx={{
-        width: '798px',
-        minHeight: '400px',
-        padding: '10px 5px 10px 9px',
-      }}>
+      <StyledContainer component="div">
         <CssBaseline />
         {!ready
           ? <CircularProgress disableShrink />
           : (
-            <>
+            <Container disableGutters component="div">
               <OverviewDialog
                 open={dialogOpen}
                 checked={checked}
@@ -79,9 +85,9 @@ export default function Popup() {
                 checked={checked}
                 setDialogOpen={setDialogOpen}
               />
-            </>
+            </Container>
           )}
-      </Container>
+      </StyledContainer>
     </ThemeProvider>
   );
 }

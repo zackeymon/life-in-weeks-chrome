@@ -71,7 +71,7 @@ export default function OverviewDialog({
               {`It's been ${thisWeek} weeks since you are born.`}
             </DialogContentText>
             <DialogContentText>
-              {`You have ${remainingWeeks} weeks until your turn ${ageGoal}.`}
+              {`You have ${remainingWeeks} weeks until you turn ${ageGoal}.`}
             </DialogContentText>
             <DialogContentText>
               Make this one count.

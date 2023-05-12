@@ -29,7 +29,7 @@ export default function HeaderBar({ checked, setDialogOpen, uncheckHack }) {
         <Grid item xs={10}>
           {checked
             ? <Typography variant="subtitle1">Make this week count.</Typography>
-            : <UncheckedPrompt variant="subtitle1">Time to check off this week.</UncheckedPrompt>}
+            : <UncheckedPrompt variant="subtitle1">Click on the box to check off this week.</UncheckedPrompt>}
         </Grid>
         <Grid item xs={1}>
           <Grid container justifyContent="flex-end">
