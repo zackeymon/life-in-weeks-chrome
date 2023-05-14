@@ -7,22 +7,34 @@ import { SnackbarProvider } from 'material-ui-snackbar-provider';
 import OptionsForm from './OptionsForm';
 import Description from './Description';
 import { useTheme } from '@mui/material/styles';
+import moment from 'moment';
+import { setNextAlarm } from '../Background/index';
 
 export default function Options() {
   const [ready, setReady] = useState(false);
   const [birthday, setBirthday] = useState(null);
-  const [ageGoal, setAgeGoal] = useState(null);
+  const [ageGoal, setAgeGoal] = useState(90);
+  const [weekBeginDay, setWeekBeginDay] = useState(1);
+  const [weekBeginTime, setWeekBeginTime] = useState(moment().hour(10).minute(0));
 
   useEffect(() => {
-    chrome.storage.sync.get(['birthday', 'ageGoal'], ({ birthday: currentBirthday, ageGoal: currentAgeGoal }) => {
-      setBirthday(currentBirthday);
+    chrome.storage.sync.get(['birthday', 'ageGoal', 'weekBeginDay', 'weekBeginTime'], ({ birthday: currentBirthday, ageGoal: currentAgeGoal, weekBeginDay: currentWeekBeginDay, weekBeginTime: currentWeekBeginTime }) => {
+      setBirthday(moment(currentBirthday));
       setAgeGoal(currentAgeGoal);
+      setWeekBeginDay(currentWeekBeginDay);
+      setWeekBeginTime(moment(currentWeekBeginTime, 'HH:mm'));
       setReady(true);
     });
-  });
+  }, []);
 
-  const updateOptions = (newBirthday, newAgeGoal) => {
-    chrome.storage.sync.set({ birthday: newBirthday, ageGoal: newAgeGoal, checked: false });
+  const updateOptions = (newBirthday, newAgeGoal, newWeekBeginDay, newWeekBeginTime) => {
+    chrome.storage.sync.set({
+      birthday: newBirthday,
+      ageGoal: newAgeGoal,
+      weekBeginDay: newWeekBeginDay,
+      weekBeginTime: newWeekBeginTime,
+      checked: false
+    }, () => { setNextAlarm(); });
   };
 
   const theme = useTheme();
@@ -41,7 +53,16 @@ export default function Options() {
           : (
             <Grid container>
               <Grid item xs={12}>
-                <OptionsForm birthday={birthday} ageGoal={ageGoal} updateOptions={updateOptions} />
+                <OptionsForm
+                  birthday={birthday}
+                  setBirthday={setBirthday}
+                  ageGoal={ageGoal}
+                  setAgeGoal={setAgeGoal}
+                  weekBeginDay={weekBeginDay}
+                  setWeekBeginDay={setWeekBeginDay}
+                  weekBeginTime={weekBeginTime}
+                  setWeekBeginTime={setWeekBeginTime}
+                  updateOptions={updateOptions} />
               </Grid>
               <Grid item xs={12}>
                 <Description />

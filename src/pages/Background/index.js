@@ -3,32 +3,37 @@ import '../../assets/img/icon-128.png';
 import moment from 'moment';
 import { getWeekNumberSince } from '../common';
 
-const DEFAULT_AGE_GOAL = 90;
+export function setNextAlarm() {
+  chrome.storage.sync.get(['weekBeginDay', 'weekBeginTime'], ({ weekBeginDay, weekBeginTime }) => {
+    const weekBeginTimeMoment = moment(weekBeginTime, 'HH:mm');
+    const nextAlarmTime = moment().isoWeekday(weekBeginDay).hour(weekBeginTimeMoment.hour()).minute(weekBeginTimeMoment.minute()).startOf('minute');
 
-console.log("Hello from the background script!");
-
-function nextMonday9AM() {
-  // return moment().add(15, 'seconds');
-  const thisMonday9AM = moment().isoWeekday(1).hour(9).startOf('hour');
-  return moment() < thisMonday9AM ? thisMonday9AM : thisMonday9AM.add(1, 'weeks');
-}
-
-function setNextAlarm() {
-  chrome.alarms.create('newWeek', { when: nextMonday9AM().valueOf() });
-}
-
-chrome.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason === 'install') {
-    chrome.storage.sync.set({ ageGoal: DEFAULT_AGE_GOAL });
-    chrome.runtime.openOptionsPage();
-  }
-  chrome.storage.sync.get(['birthday', 'checked'], ({ birthday, checked }) => {
-    if (!birthday) {
-      return;
+    // Check if nextAlarmTime has already passed
+    if (nextAlarmTime.isBefore(moment())) {
+      // If it has, add one week to nextAlarmTime
+      nextAlarmTime.add(1, 'week');
     }
+
+    console.log(nextAlarmTime.format('dddd, MMMM Do YYYY, h:mm:ss a'));
+    chrome.alarms.create('newWeek', { when: nextAlarmTime.valueOf() });
+  });
+}
+
+const DEFAULT_PARAMS = {
+  'birthday': '1999-01-01',
+  'ageGoal': 90,
+  'checked': false,
+  'weekBeginDay': 1,
+  'weekBeginTime': '09:00',
+};
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.sync.get(DEFAULT_PARAMS, ({ birthday, ageGoal, checked, weekBeginDay, weekBeginTime }) => {
+    chrome.storage.sync.set({ birthday, ageGoal, checked, weekBeginDay, weekBeginTime });
     if (!checked) {
       chrome.action.setBadgeText({ text: getWeekNumberSince(moment(birthday)).toString() });
     }
+    chrome.runtime.openOptionsPage();
   });
   setNextAlarm();
 });

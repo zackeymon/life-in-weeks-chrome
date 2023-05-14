@@ -25,10 +25,10 @@ export default function Description() {
           {' '}
           from Wait But Why.
         </Typography>
-        <Typography variant="caption" paragraph>
+        <Typography variant="caption">
           Made with
           {' '}
-          <FavoriteIcon style={{ fontSize: 11 }} />
+          <FavoriteIcon sx={{ fontSize: 11 }} />
           {' '}
           by Zack.
         </Typography>
