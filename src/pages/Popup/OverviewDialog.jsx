@@ -1,5 +1,5 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -8,6 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ConfettiExplosion from 'react-confetti-explosion';
+import CoffeeIcon from '@mui/icons-material/Coffee';
 
 
 const CheckedChip = styled(Chip)(({ theme }) => ({
@@ -22,12 +23,7 @@ const UncheckedChip = styled(Chip)(({ theme }) => ({
 
 const CheckButton = styled(Button)(({ theme }) => ({
   color: theme.palette.accent.main,
-  '&:active': {
-    transform: 'scale(0.9)',
-    transition: 'transform 0.1s',
-  },
 }));
-
 
 
 export default function OverviewDialog({
@@ -39,6 +35,7 @@ export default function OverviewDialog({
   ageGoal,
   checkThisWeek,
 }) {
+  const theme = useTheme();
 
   const [isExploding, setIsExploding] = React.useState(false);
 
@@ -76,6 +73,9 @@ export default function OverviewDialog({
             <DialogContentText>
               Make this one count.
             </DialogContentText>
+            <Button href='https://www.buymeacoffee.com/zackx' target='_blank' variant="outlined" size="small" sx={{ marginTop: theme.spacing(1) }} startIcon={<CoffeeIcon />}>
+              buy me a coffee
+            </Button>
           </DialogContent>
         )
         : (
