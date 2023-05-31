@@ -9,16 +9,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ConfettiExplosion from 'react-confetti-explosion';
 import CoffeeIcon from '@mui/icons-material/Coffee';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
+import DoneIcon from '@mui/icons-material/Done';
 
 
-const CheckedChip = styled(Chip)(({ theme }) => ({
+const TitleChip = styled(Chip)(({ theme }) => ({
   color: 'white',
-  backgroundColor: theme.palette.grey[300],
-}));
-
-const UncheckedChip = styled(Chip)(({ theme }) => ({
-  color: 'white',
-  backgroundColor: theme.palette.accent.main,
+  borderRadius: '5px',
+  fontWeight: 'bold',
+  height: '35px',
+  marginTop: theme.spacing(1),
 }));
 
 const CheckButton = styled(Button)(({ theme }) => ({
@@ -54,16 +54,14 @@ export default function OverviewDialog({
       onClose={handleClose}
     >
       <DialogTitle>
-        {`Week ${thisWeek} `}
-        {checked ? (
-          <CheckedChip size="small" label="checked" />
-        ) : (
-          <UncheckedChip size="small" label="unchecked" />
-        )}
+        {checked
+          ? <TitleChip icon={<DoneIcon fontSize='small' color='white' />} label={`Week ${thisWeek}`} sx={{ backgroundColor: theme.palette.grey[400] }} />
+          : <TitleChip icon={<AutorenewIcon fontSize='small' color='white' />} label={`Week ${thisWeek}`} sx={{ backgroundColor: theme.palette.accent.main }} />
+        }
       </DialogTitle>
       {checked
         ? (
-          <DialogContent sx={{ minHeight: '100px', minWidth: '400px' }} >
+          <DialogContent sx={{ minHeight: '130px', minWidth: '400px' }} >
             <DialogContentText>
               {`It's been ${thisWeek} weeks since you are born.`}
             </DialogContentText>
@@ -74,12 +72,12 @@ export default function OverviewDialog({
               Make this one count.
             </DialogContentText>
             <Button href='https://www.buymeacoffee.com/zackx' target='_blank' variant="outlined" size="small" sx={{ marginTop: theme.spacing(1) }} startIcon={<CoffeeIcon />}>
-              buy me a coffee
+              Buy me a coffee
             </Button>
           </DialogContent>
         )
         : (
-          <DialogContent sx={{ minHeight: '100px', minWidth: '400px' }}>
+          <DialogContent sx={{ minHeight: '130px', minWidth: '400px' }}>
             <DialogContentText>
               Check to reveal more information.
             </DialogContentText>

@@ -11,20 +11,21 @@ const Cell = styled('div')(({ theme }) => ({
   width: '8px',
   height: '8px',
   boxSizing: 'border-box',
-  backgroundColor: 'white',
+  backgroundColor: theme.palette.grey[100],
 }));
 
 const Past = styled(Cell)(({ theme }) => ({
-  backgroundColor: theme.palette.grey[300],
+  backgroundColor: theme.palette.grey[400],
 }));
 
 const Future = styled(Cell)(({ theme }) => ({
-  border: `0.5px solid ${theme.palette.grey[200]}`,
+  // border: `0.5px solid ${theme.palette.grey[200]}`,
 }));
 
 const Current = styled(Cell)(({ theme }) => ({
   cursor: 'pointer',
   border: `1.5px solid ${theme.palette.accent.main}`,
+  backgroundColor: theme.palette.grey[200],
   zIndex: 1,
   "@keyframes pulsate": {
     from: {
@@ -34,7 +35,7 @@ const Current = styled(Cell)(({ theme }) => ({
       boxShadow: `0 0 5px 8px rgba(0, 0, 0, 0)`
     }
   },
-  animation: "pulsate 1.5s infinite ease",
+  animation: "pulsate 1s infinite ease",
   '&:hover': {
     borderWidth: '1px',
     transform: 'scale(2.5)',
@@ -45,8 +46,18 @@ const Current = styled(Cell)(({ theme }) => ({
 }));
 
 const CurrentChecked = styled(Cell)(({ theme }) => ({
-  border: `1px solid ${theme.palette.accent.main}`,
-  backgroundColor: theme.palette.grey[300],
+  border: `1.5px solid ${theme.palette.accent.main}`,
+  backgroundColor: theme.palette.grey[400],
+  zIndex: 1,
+  "@keyframes pulsate": {
+    from: {
+      boxShadow: `0 0 0 0px ${theme.palette.accent.main}`
+    },
+    to: {
+      boxShadow: `0 0 5px 8px rgba(0, 0, 0, 0)`
+    }
+  },
+  animation: "pulsate 3s infinite ease",
 }));
 
 export default function LifeGrid(props) {

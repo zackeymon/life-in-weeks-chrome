@@ -29,7 +29,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 export default function OptionsForm({ birthday, setBirthday, ageGoal, setAgeGoal, weekBeginDay, setWeekBeginDay, weekBeginTime, setWeekBeginTime, updateOptions }) {
   const MIN_AGE_GOAL = 50;
-  const MAX_AGE_GOAL = 99;
+  const MAX_AGE_GOAL = 110;
 
   const snackbar = useSnackbar();
 

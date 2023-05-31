@@ -6,9 +6,14 @@ import Container from '@mui/material/Container';
 import { SnackbarProvider } from 'material-ui-snackbar-provider';
 import OptionsForm from './OptionsForm';
 import Description from './Description';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
 import moment from 'moment';
 import { setNextAlarm } from '../Background/index';
+import logo from '../../assets/img/icon-128.png';
+
+const Logo = styled('img')(({ theme }) => ({
+  marginBottom: theme.spacing(3),
+}));
 
 export default function Options() {
   const [ready, setReady] = useState(false);
@@ -42,7 +47,7 @@ export default function Options() {
   return (
     <SnackbarProvider SnackbarProps={{ autoHideDuration: 8000 }}>
       <Container component="div" maxWidth="xs" sx={{
-        marginTop: theme.spacing(12),
+        marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -52,6 +57,9 @@ export default function Options() {
           ? <CircularProgress />
           : (
             <Grid container>
+              <Grid item xs={12}>
+                <Logo src={logo} alt='logo' />
+              </Grid>
               <Grid item xs={12}>
                 <OptionsForm
                   birthday={birthday}
