@@ -21,6 +21,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { useSnackbar } from 'material-ui-snackbar-provider';
 import { getWeekNumberSince } from '../common';
+import Tooltip from '@mui/material/Tooltip';
 
 const StyledButton = styled(Button)(({ theme }) => ({
   marginRight: theme.spacing(1),
@@ -109,11 +110,12 @@ export default function OptionsForm({ birthday, setBirthday, ageGoal, setAgeGoal
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox disabled color="primary" />}
-              label="Also show on the New Tab page"
-            />
-            <Chip label={"Coming soon!"} size='small' />
+            <Tooltip arrow title="This feature is challenging to implement. If you think it would be useful please let me know via the feedback form. Alternatively, you can contribute by visiting the Github link.">
+              <FormControlLabel
+                control={<Checkbox disabled color="primary" />}
+                label="Also show on the New Tab page"
+              />
+            </Tooltip>
           </Grid>
           <Grid item xs={12}>
             <StyledButton
