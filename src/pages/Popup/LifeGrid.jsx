@@ -11,21 +11,20 @@ const Cell = styled('div')(({ theme }) => ({
   width: '8px',
   height: '8px',
   boxSizing: 'border-box',
-  backgroundColor: theme.palette.grey[100],
 }));
 
 const Past = styled(Cell)(({ theme }) => ({
-  backgroundColor: theme.palette.grey[400],
+  backgroundColor: theme.palette.action.disabled,
 }));
 
 const Future = styled(Cell)(({ theme }) => ({
-  // border: `0.5px solid ${theme.palette.grey[200]}`,
+  backgroundColor: theme.palette.action.disabledBackground,
 }));
 
 const Current = styled(Cell)(({ theme }) => ({
   cursor: 'pointer',
   border: `1.5px solid ${theme.palette.accent.main}`,
-  backgroundColor: theme.palette.grey[200],
+  backgroundColor: theme.palette.action.disabledBackground,
   zIndex: 1,
   "@keyframes pulsate": {
     from: {
@@ -47,7 +46,7 @@ const Current = styled(Cell)(({ theme }) => ({
 
 const CurrentChecked = styled(Cell)(({ theme }) => ({
   border: `1.5px solid ${theme.palette.accent.main}`,
-  backgroundColor: theme.palette.grey[400],
+  backgroundColor: theme.palette.action.disabled,
   zIndex: 1,
   "@keyframes pulsate": {
     from: {

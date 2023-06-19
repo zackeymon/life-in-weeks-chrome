@@ -9,7 +9,7 @@ import Description from './Description';
 import { useTheme, styled } from '@mui/material/styles';
 import moment from 'moment';
 import { setNextAlarm } from '../Background/index';
-import logo from '../../assets/img/icon-128.png';
+import logo from '../../assets/img/icon-128-dark.png';
 
 const Logo = styled('img')(({ theme }) => ({
   marginBottom: theme.spacing(3),

@@ -25,11 +25,12 @@ const DEFAULT_PARAMS = {
   'checked': false,
   'weekBeginDay': 1,
   'weekBeginTime': '09:00',
+  'colorMode': 'light',
 };
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.get(DEFAULT_PARAMS, ({ birthday, ageGoal, checked, weekBeginDay, weekBeginTime }) => {
-    chrome.storage.sync.set({ birthday, ageGoal, checked, weekBeginDay, weekBeginTime });
+  chrome.storage.sync.get(DEFAULT_PARAMS, ({ birthday, ageGoal, checked, weekBeginDay, weekBeginTime, colorMode }) => {
+    chrome.storage.sync.set({ birthday, ageGoal, checked, weekBeginDay, weekBeginTime, colorMode });
     if (!checked) {
       chrome.action.setBadgeText({ text: getWeekNumberSince(moment(birthday)).toString() });
     }
