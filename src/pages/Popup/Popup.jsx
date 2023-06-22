@@ -13,7 +13,8 @@ import { grey } from '@mui/material/colors';
 const StyledContainer = styled(Container)(({ theme }) => ({
   width: '798px',
   minHeight: '300px',
-  padding: theme.spacing(3),
+  padding: theme.spacing(2),
+  paddingBottom: theme.spacing(3),
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -95,6 +96,7 @@ export default function Popup() {
     });
   };
 
+  // for debugging
   const uncheckHack = () => {
     setChecked(false);
     chrome.storage.sync.set({ checked: false });

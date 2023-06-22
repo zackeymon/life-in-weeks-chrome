@@ -10,6 +10,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Grid from '@mui/material/Grid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -132,6 +133,14 @@ export default function OptionsForm({ birthday, setBirthday, ageGoal, setAgeGoal
               target="_blank"
             >
               Feedback
+            </StyledButton>
+            <StyledButton
+              variant="outlined"
+              startIcon={<GitHubIcon />}
+              href="https://github.com/zackeymon/life-in-weeks-chrome"
+              target="_blank"
+            >
+              Github
             </StyledButton>
           </Grid>
         </Grid>

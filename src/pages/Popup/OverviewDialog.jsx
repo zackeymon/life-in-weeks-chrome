@@ -11,6 +11,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 import CoffeeIcon from '@mui/icons-material/Coffee';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import DoneIcon from '@mui/icons-material/Done';
+import Typography from '@mui/material/Typography';
 
 
 const TitleChip = styled(Chip)(({ theme }) => ({
@@ -61,15 +62,17 @@ export default function OverviewDialog({
       </DialogTitle>
       {checked
         ? (
-          <DialogContent sx={{ minHeight: '130px', minWidth: '400px' }} >
+          <DialogContent sx={{ minHeight: '150px', minWidth: '400px' }} >
             <DialogContentText>
-              {`It's been ${thisWeek} weeks since you are born.`}
-            </DialogContentText>
-            <DialogContentText>
-              {`You have ${remainingWeeks} weeks until you turn ${ageGoal}.`}
-            </DialogContentText>
-            <DialogContentText>
-              Make this one count.
+              <Typography variant="subtitle1">
+                {`It's been ${thisWeek} weeks since you were born.`}
+              </Typography>
+              <Typography variant="subtitle1">
+                {`You have ${remainingWeeks} weeks until you turn ${ageGoal}.`}
+              </Typography>
+              <Typography variant="subtitle1">
+                Make this one count.
+              </Typography>
             </DialogContentText>
             <Button href='https://www.buymeacoffee.com/zackx' target='_blank' variant="outlined" size="small" sx={{ marginTop: theme.spacing(1) }} startIcon={<CoffeeIcon />}>
               Buy me a coffee
@@ -77,7 +80,7 @@ export default function OverviewDialog({
           </DialogContent>
         )
         : (
-          <DialogContent sx={{ minHeight: '130px', minWidth: '400px' }}>
+          <DialogContent sx={{ minHeight: '150px', minWidth: '400px' }}>
             <DialogContentText>
               Check to reveal more information.
             </DialogContentText>
