@@ -3,7 +3,8 @@ import '../../assets/img/icon-128.png';
 import moment from 'moment';
 import { getWeekNumberSince } from '../common';
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+  if (reason !== 'install' && reason !== 'update') return;
   const DEFAULT_PARAMS = {
     'birthday': '1999-01-01',
     'ageGoal': 90,
